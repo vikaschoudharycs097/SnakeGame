@@ -2,7 +2,7 @@
 #define GAME_H
 
 #include <random>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include "snake.h"
 #include "food.h"
 #include "renderer.h"

@@ -1,3 +1,3 @@
 # SnakeGame
-Designing snake game using SDL(Simple DirectMedia Layer) and C++ language 
+Designing snake game using SDL(Simple DirectMedia Layer) and C++ language
 
