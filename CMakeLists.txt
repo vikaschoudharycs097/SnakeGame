@@ -15,3 +15,5 @@ include_directories(${SDL2_INCLUDE_DIRS} src)
 add_executable(snake src/main.cpp src/game.cpp src/food.cpp src/renderer.cpp src/snake.cpp)
 string(STRIP ${SDL2_LIBRARIES} SDL2_LIBRARIES)
 target_link_libraries(snake ${SDL2_LIBRARIES})
+
+install(TARGETS snake DESTINATION /usr/local/bin)
