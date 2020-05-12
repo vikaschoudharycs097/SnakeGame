@@ -1,6 +1,6 @@
 # Snake Game
 Designing snake game using SDL(Simple DirectMedia Layer) and C++ language 
-[](images/im3.png)
+![](images/im3.png)
 
 ## Instruction(for Linux)
 <pre>
