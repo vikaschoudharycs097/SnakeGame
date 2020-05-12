@@ -1,0 +1,37 @@
+#include <SDL2/SDL.h>
+
+int main(void)
+{
+	// Initilizating all subsystem of SDL
+    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+    {
+        std::cerr << "SDL Error: " << SDL_GetError() << "\n";
+    }
+
+    // Creating SDL window
+    SDL_Window *_window = SDL_CreateWindow("Snake Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+                              WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+    if (_window == nullptr)
+    {
+        std::cerr << "SDL Error: " << SDL_GetError() << "\n";
+    }
+
+    // Creating SDL renderer
+    SDL_Renderer *_renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
+    if (_renderer == nullptr)
+    {
+        std::cerr << "SDL Error: " << SDL_GetError() << "\n";
+    }
+
+	SDL_Rect rect;
+	rect.x = 10;
+	rect.y = 10;
+	rect.w = 100;
+	rect.h = 100;
+	
+
+	SDL_RenderFillRect(_renderer, &rect);
+
+    // Update screen
+    SDL_RenderPresent(_renderer);
+SDL_SetRenderDrawColor(_renderer, 0XFF, 0X0, 0X0, 0XFF);

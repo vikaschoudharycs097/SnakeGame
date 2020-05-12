@@ -4,7 +4,7 @@
 
 Game::Game(int grid_count_x, int grid_count_y):
 snake(grid_count_x, grid_count_y, Point<double>(grid_count_x / 2.0, grid_count_y / 2.0), 0.1, MoveDirection::UP),
-food(0, 0, FoodType::NORMAL), _random_x(0, grid_count_x), _random_y(0, grid_count_y)
+food(0, 0, FoodType::NORMAL), _random_x(0, grid_count_x - 1), _random_y(0, grid_count_y - 1)
 {
     placeFood();
 }
