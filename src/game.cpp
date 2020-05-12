@@ -99,7 +99,9 @@ void Game::update(void)
     {
         score += food.getAmount();
         placeFood();
-        snake.updateSpeed(0.01);
+        snake.updateSpeed(0.01 * _speed_factor);
+        // Small decrease in _speed_factor for dynamic speed
+        _speed_factor = _speed_factor * _speed_factor - 0.2;
         snake.growBody();
     }
 }

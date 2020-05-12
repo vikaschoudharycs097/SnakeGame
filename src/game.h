@@ -15,6 +15,9 @@ private:
     bool _running{true};
     int score{0};
 
+    // Use to determine dynamic change in speed of snake with each new food consumption
+    double _speed_factor{1.0};
+
     // Helper functions
     void inputHandler(void);
     void update(void);
