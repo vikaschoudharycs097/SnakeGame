@@ -1,12 +1,14 @@
 #include "game.h"
 #include "point.h"
+#include <iostream>
 
 
 Game::Game(int grid_count_x, int grid_count_y):
-snake(grid_count_x, grid_count_y, Point<double>(grid_count_x / 2.0, grid_count_y / 2.0), 0.1, MoveDirection::UP),
-food(0, 0, FoodType::NORMAL), _random_x(0, grid_count_x - 1), _random_y(0, grid_count_y - 1)
+ _random_x(0, grid_count_x - 1), _random_y(0, grid_count_y - 1),
+snake(grid_count_x, grid_count_y, Point<double>(grid_count_x / 2.0, grid_count_y / 2.0), 
+0.1, MoveDirection::UP), food(_random_x(_mt), _random_y(_mt), FoodType::NORMAL)
 {
-    placeFood();
+
 }
 
 void Game::run(Renderer renderer, unsigned target_time)

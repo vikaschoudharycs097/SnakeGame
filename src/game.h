@@ -10,6 +10,12 @@
 class Game
 {
 private:
+    // For random position generation
+    std::random_device _rd;
+    std::mt19937 _mt{_rd()};
+    std::uniform_int_distribution<int> _random_x;
+    std::uniform_int_distribution<int> _random_y;
+
     Snake snake;
     Food food;
     bool _running{true};
@@ -22,12 +28,6 @@ private:
     void inputHandler(void);
     void update(void);
     void placeFood(void);
-    
-    // For random position generation
-    std::random_device _rd;
-    std::mt19937 _mt{_rd()};
-    std::uniform_int_distribution<int> _random_x;
-    std::uniform_int_distribution<int> _random_y;
 
 public:
     Game(int grid_count_x, int grid_count_y);
