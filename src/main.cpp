@@ -1,3 +1,4 @@
+#include <utility>
 #include "renderer.h"
 #include "game.h"
 
@@ -12,7 +13,7 @@ int main(void)
 
     Renderer renderer(WINDOW_WIDTH, WINDOW_HEIGHT, GRID_WIDTH, GRID_HEIGHT);
     Game game(WINDOW_WIDTH / GRID_WIDTH, WINDOW_HEIGHT / GRID_HEIGHT);
-    game.run(renderer, FRAME_PER_MILLISECOND);
+    game.run(std::move(renderer), FRAME_PER_MILLISECOND);
 
     return 0;
 }

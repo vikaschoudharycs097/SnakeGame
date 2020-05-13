@@ -31,7 +31,7 @@ private:
 
 public:
     Game(int grid_count_x, int grid_count_y);
-    void run(Renderer &renderer, unsigned target_time);
+    void run(Renderer renderer, unsigned target_time);
 };
 
 #endif

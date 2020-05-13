@@ -9,7 +9,7 @@ food(0, 0, FoodType::NORMAL), _random_x(0, grid_count_x - 1), _random_y(0, grid_
     placeFood();
 }
 
-void Game::run(Renderer &renderer, unsigned target_time)
+void Game::run(Renderer renderer, unsigned target_time)
 {
     Uint32 title_time = SDL_GetTicks();
     Uint32 frame_start;
