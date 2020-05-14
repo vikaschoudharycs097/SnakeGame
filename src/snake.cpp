@@ -3,33 +3,10 @@
 #include "snake.h"
 #include "point.h"
 
-Snake::Snake(int grid_count_x, int grid_count_y, const Point<double> &head, double speed, MoveDirection dir):
-_GRID_COUNT_X(grid_count_x), _GRID_COUNT_Y(grid_count_y), _head(head), _speed(speed), _dir(dir)
+Snake::Snake(Point<double> head, double speed, int grid_x, int grid_y, MoveDirection dir):
+Animal(head, speed), _GRID_X(grid_x), _GRID_Y(grid_y), _dir(dir)
 {
-    int x = static_cast<int>(head.x);
-    int y = static_cast<int>(head.y);
-    Point<int> p(x, y);
 
-    // Constructing initial body
-    switch(_dir)
-    {
-        case MoveDirection::UP:
-            p.y += 1;
-            break;
-        case MoveDirection::DOWN:
-            p.y -= 1;
-            break;
-        case MoveDirection::LEFT:
-            p.x += 1;
-            break;
-        case MoveDirection::RIGHT:
-            p.x -= 1;
-            break;
-        default:
-            break;
-    }
-
-    _body.push_back(p);
 }
 
 // Update the _body and _head of snake according to _speed
@@ -68,27 +45,27 @@ void Snake::updateHead(void)
     switch(_dir)
     {
         case MoveDirection::UP:
-            _head.y -= _speed;
+            _head.y -= getSpeed();
             break;
         case MoveDirection::DOWN:
-            _head.y += _speed;
+            _head.y += getSpeed();
             break;
         case MoveDirection::LEFT:
-            _head.x -= _speed;
+            _head.x -= getSpeed();
             break;
         case MoveDirection::RIGHT:
-            _head.x += _speed;
+            _head.x += getSpeed();
             break;
     }
 
-    _head.x = fmod(_head.x + _GRID_COUNT_X, _GRID_COUNT_X);
-    _head.y = fmod(_head.y + _GRID_COUNT_Y, _GRID_COUNT_Y);
+    _head.x = fmod(_head.x + _GRID_X, _GRID_X);
+    _head.y = fmod(_head.y + _GRID_Y, _GRID_Y);
 }
 
 // Update Body
 void Snake::updateBody(const Point<int> &curr_head, const Point<int> &prev_head)
 {
-    if (!_growing)
+    if (!(_growing || _body.empty()))
     {
         _body.erase(_body.begin());
     }
@@ -102,15 +79,9 @@ void Snake::updateBody(const Point<int> &curr_head, const Point<int> &prev_head)
     {
         if (point == curr_head)
         {
-            _alive = false;
+            setAlive(false);
         }
     }
-}
-
-// Return alive
-bool Snake::isAlive(void)
-{
-    return _alive;
 }
 
 // Checking that given cell has part of snake or not
@@ -131,21 +102,10 @@ bool Snake::snakeCell(const Point<int> &p)
     return false;
 }
 
-// Returning head of snake
-const Point<double>& Snake::getHead(void)
-{
-    return _head;
-}
-
 // Returning body of snake
-const std::vector<Point<int>>& Snake::getBody(void)
+std::vector<Point<int>> Snake::getBody(void)
 {
     return _body;
-}
-
-void Snake::updateSpeed(double increment)
-{
-    _speed += increment;
 }
 
 void Snake::growBody(void)

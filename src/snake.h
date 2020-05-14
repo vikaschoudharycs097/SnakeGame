@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "point.h"
+#include "animal.h"
 
 // Defining Direction enum
 enum class MoveDirection
@@ -13,30 +14,24 @@ enum class MoveDirection
     RIGHT
 };
 
-class Snake
+class Snake: public Animal
 {
 private:
-    const int _GRID_COUNT_X;
-    const int _GRID_COUNT_Y;
-    Point<double> _head;
-    double _speed;
-    MoveDirection _dir;
     std::vector<Point<int>> _body;
-    bool _alive{true};
+    MoveDirection _dir;
     bool _growing{false};
+    const int _GRID_X;
+    const int _GRID_Y;
 
 public:
     // Constructor
-    Snake(int grid_count_x, int grid_count_y, const Point<double> &head, double speed, MoveDirection dir);
+    Snake(Point<double> head, double speed, int grid_x, int grid_y, MoveDirection dir);
+    std::vector<Point<int>> getBody(void);
     void update(void);
     void updateHead(void);
     void updateBody(const Point<int> &curr_head, const Point<int> &prev_head);
     void updateDir(MoveDirection _dir);
-    bool isAlive(void);
     bool snakeCell(const Point<int> &p);
-    const Point<double> &getHead(void);
-    const std::vector<Point<int>> &getBody(void);
-    void updateSpeed(double increment);
     void growBody(void);
 };
 

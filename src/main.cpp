@@ -1,6 +1,7 @@
 #include <utility>
-#include "renderer.h"
+#include <iostream>
 #include "game.h"
+#include "renderer.h"
 
 int main(void)
 {
@@ -14,6 +15,7 @@ int main(void)
     Renderer renderer(WINDOW_WIDTH, WINDOW_HEIGHT, GRID_WIDTH, GRID_HEIGHT);
     Game game(WINDOW_WIDTH / GRID_WIDTH, WINDOW_HEIGHT / GRID_HEIGHT);
     game.run(std::move(renderer), FRAME_PER_MILLISECOND);
+    std::cout << "Score is: " << game.getScore() << "\n"; 
 
     return 0;
 }

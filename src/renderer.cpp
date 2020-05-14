@@ -1,9 +1,9 @@
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <iostream>
 #include <string>
 #include "renderer.h"
 #include "snake.h"
-#include "food.h"
+#include "rat.h"
 
 // Constructor
 Renderer::Renderer(const int WINDOW_WIDTH, const int WINDOW_HEIGHT, const int GRID_WIDTH, const int GRID_HEIGHT):
@@ -75,7 +75,7 @@ Renderer::~Renderer()
     SDL_Quit();
 }
 
-void Renderer::renderWindow(Snake &snake, Food &food)
+void Renderer::renderWindow(Snake *snake, Rat *rat)
 {
     SDL_Rect rect; 
     rect.w = _grid_width;
@@ -86,14 +86,14 @@ void Renderer::renderWindow(Snake &snake, Food &food)
     SDL_RenderClear(_renderer);
 
     // Render the food
-    rect.x = food.getX() * rect.w;  // Converting grid number into pixel
-    rect.y = food.getY() * rect.h;
+    rect.x = rat->getX() * rect.w;  // Converting grid number into pixel
+    rect.y = rat->getY() * rect.h;
     SDL_SetRenderDrawColor(_renderer, 0xFF, 0xCC, 0x00, 0xFF);
     SDL_RenderFillRect(_renderer, &rect);
 
     // Render the snake body
     SDL_SetRenderDrawColor(_renderer, 0XFF, 0XFF, 0XFF, 0XFF);
-    for (auto &point: snake.getBody())
+    for (auto &point: snake->getBody())
     {
         rect.x = point.x * rect.w;
         rect.y = point.y * rect.h;
@@ -101,10 +101,10 @@ void Renderer::renderWindow(Snake &snake, Food &food)
     }
 
     // Render the snake head
-    auto head = snake.getHead();
+    auto head = snake->getHead();
     rect.x = static_cast<int>(head.x) * rect.w;
     rect.y = static_cast<int>(head.y) * rect.h;
-    if (snake.isAlive())
+    if (snake->isAlive())
     {
         SDL_SetRenderDrawColor(_renderer, 0X0, 0x7A, 0xCC, 0xFF);
     }

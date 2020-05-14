@@ -3,7 +3,7 @@
 
 #include <SDL.h>
 #include "snake.h"
-#include "food.h"
+#include "rat.h"
 
 class Renderer
 {
@@ -22,7 +22,7 @@ public:
     Renderer(Renderer &&renderer);   // Move Constructor
     ~Renderer();  // Destructor
 
-    void renderWindow(Snake &snake, Food &food);
+    void renderWindow(Snake *snake, Rat *rat);
     void updateWindowTitle(int score);
 
     // Operator Overloading
