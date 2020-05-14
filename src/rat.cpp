@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include "rat.h"
 
-Rat::Rat(Point<double> head, int grid_x, int grid_y, int amount):
+Rat::Rat(Point<double> head, int grid_x, int grid_y, double amount):
 Animal(head, 0.0), _random_x(0, grid_x - 1), _random_y(0, grid_y - 1), _amount(amount)
 {
     updateHead();
@@ -16,7 +16,7 @@ void Rat::updateHead(void)
 // Getters
 int Rat::getAmount(void)
 {
-    return _amount;
+    return (int)_amount;
 }
 
 double Rat::getX(void)
@@ -27,4 +27,9 @@ double Rat::getX(void)
 double Rat::getY(void)
 {
     return _head.y;
+}
+
+void Rat::updateAmount(double increment)
+{
+    _amount += increment;
 }

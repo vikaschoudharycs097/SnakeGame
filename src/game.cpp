@@ -5,7 +5,7 @@
 
 Game::Game(int grid_x, int grid_y):
 snake(new Snake(Point<double>(grid_x / 2.0, grid_y / 2.0), 0.1, grid_x, 
-grid_y, MoveDirection::UP)), rat(new Rat(Point<double>(0.0, 0.0), grid_x, grid_y, 1))
+grid_y, MoveDirection::UP)), rat(new Rat(Point<double>(0.0, 0.0), grid_x, grid_y, 1.0))
 {
 
 }
@@ -88,10 +88,11 @@ void Game::update(void)
     {
         _score += rat->getAmount();
         rat->updateHead();
+        rat->updateAmount(0.3);
         
-        snake->updateSpeed(0.01 * _speed_factor);
+        snake->updateSpeed(0.03 * _speed_factor);
         // Small decrease in _speed_factor for dynamic speed
-        _speed_factor = _speed_factor * _speed_factor - 0.2;
+        _speed_factor = _speed_factor * _speed_factor - 0.1;
         snake->growBody();
     }
 }
