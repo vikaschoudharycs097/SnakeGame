@@ -17,7 +17,7 @@ private:
 
 public:
     // Constructor and Destructor
-    Renderer(const int WINDOW_WIDTH, const int WINDOW_HEIGHT, const int GRID_WIDTH, const int GRID_HEIGHT);
+    Renderer(int w_width, int w_height, int g_width, int g_height);
     Renderer(const Renderer &renderer);  // Copy constructor for deep copy
     Renderer(Renderer &&renderer);   // Move Constructor
     ~Renderer();  // Destructor

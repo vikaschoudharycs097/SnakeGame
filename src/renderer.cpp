@@ -6,8 +6,8 @@
 #include "rat.h"
 
 // Constructor
-Renderer::Renderer(const int WINDOW_WIDTH, const int WINDOW_HEIGHT, const int GRID_WIDTH, const int GRID_HEIGHT):
-_window_width(WINDOW_WIDTH), _window_height(WINDOW_HEIGHT), _grid_width(GRID_WIDTH), _grid_height(GRID_HEIGHT)
+Renderer::Renderer(int w_width, int w_height, int g_width, int g_height):
+_window_width(w_width), _window_height(w_height), _grid_width(g_width), _grid_height(g_height)
 {
     // Initilizating all subsystem of SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -17,7 +17,7 @@ _window_width(WINDOW_WIDTH), _window_height(WINDOW_HEIGHT), _grid_width(GRID_WID
 
     // Creating SDL window
     _window = SDL_CreateWindow("Snake Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                              WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+                              w_width, w_height, 0);
     if (_window == nullptr)
     {
         std::cerr << "SDL Error: " << SDL_GetError() << "\n";
