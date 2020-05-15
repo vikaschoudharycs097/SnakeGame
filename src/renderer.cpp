@@ -1,9 +1,5 @@
-#include <SDL.h>
 #include <iostream>
-#include <string>
 #include "renderer.h"
-#include "snake.h"
-#include "rat.h"
 
 // Constructor
 Renderer::Renderer(int w_width, int w_height, int g_width, int g_height):
@@ -29,6 +25,12 @@ _window_width(w_width), _window_height(w_height), _grid_width(g_width), _grid_he
     {
         std::cerr << "SDL Error: " << SDL_GetError() << "\n";
     }
+
+    // Initilizating ttf
+    if (TTF_Init() == -1)
+    {
+        std::cerr << "TTF Error: " << TTF_GetError() << "\n";
+    }
 }
 
 // Copy Constructor
@@ -50,6 +52,12 @@ _grid_width(renderer._grid_width), _grid_height(renderer._grid_height)
     {
         std::cerr << "SDL Error: " << SDL_GetError() << "\n";
     }
+
+    // Initilizating ttf
+    if (TTF_Init() == -1)
+    {
+        std::cerr << "TTF Error: " << TTF_GetError() << "\n";
+    }
 }
 
 // Move Constructor
@@ -68,6 +76,9 @@ _grid_width(renderer._grid_width), _grid_height(renderer._grid_height)
 // Destructor
 Renderer::~Renderer()
 {
+    // Cleaning font system
+    TTF_Quit();
+
     // Destorying window
     SDL_DestroyWindow(_window);
 
@@ -116,6 +127,47 @@ void Renderer::renderWindow(Snake *snake, Rat *rat)
 
     // Update screen
     SDL_RenderPresent(_renderer);
+}
+
+void Renderer::renderFont(const char *font_name, const char *text, int size)
+{
+    // Clearing the window
+    SDL_RenderClear(_renderer);
+
+    // Load font
+    TTF_Font *font = TTF_OpenFont(font_name, size);
+    if (font == nullptr)
+    {
+        std::cerr << "TTF Error: " << TTF_GetError() << "\n";
+    }
+
+    SDL_Color color = {255, 255, 255};
+    SDL_Surface *surface = TTF_RenderText_Solid(font, text, color);
+    if (surface == nullptr)
+    {
+        std::cerr << "SDL Error: " << SDL_GetError() << "\n";
+    }
+
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(_renderer, surface);
+    if (texture == nullptr)
+    {
+        std::cerr << "SDL Error: " << SDL_GetError() << "\n";
+    }
+
+    SDL_Rect coor;
+    coor.x = _window_width / 5;
+    coor.y = _window_height / 5;
+    coor.w = _window_width - 2 * coor.x;
+    coor.h = _window_height - 2 * coor.y;
+    SDL_RenderCopy(_renderer, texture, NULL, &coor);
+    SDL_RenderPresent(_renderer);
+
+    SDL_Delay(5000);
+
+    SDL_DestroyTexture(texture);
+    SDL_FreeSurface(surface);
+    // Pointer to the TTF_Font to free
+    TTF_CloseFont(font);
 }
 
 void Renderer::updateWindowTitle(int score)

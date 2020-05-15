@@ -2,6 +2,7 @@
 #define RENDERER_H
 
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include "snake.h"
 #include "rat.h"
 
@@ -23,6 +24,7 @@ public:
     ~Renderer();  // Destructor
 
     void renderWindow(Snake *snake, Rat *rat);
+    void renderFont(const char *font_name, const char *text, int size);
     void updateWindowTitle(int score);
 
     // Operator Overloading

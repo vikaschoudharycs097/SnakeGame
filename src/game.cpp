@@ -17,7 +17,9 @@ void Game::run(Renderer renderer, unsigned target_time)
     Uint32 frame_end;
     Uint32 frame_duration;
 
-    while (_running && snake->isAlive())
+    renderer.renderFont("../fonts/EvilEmpire.ttf", "LEVEL 1", 30);
+
+    while (_running)
     {
         frame_start = SDL_GetTicks();
         
@@ -43,6 +45,20 @@ void Game::run(Renderer renderer, unsigned target_time)
         if (frame_duration < target_time)
         {
             SDL_Delay(target_time - frame_duration);
+        }
+
+        // Winner or loser
+        if (_score >= 300)
+        {
+            renderer.renderFont("../fonts/EvilEmpire.ttf", "You Won!", 30);
+            SDL_Delay(5000);
+            break;
+        }
+        else if (!snake->isAlive())
+        {
+            renderer.renderFont("../fonts/EvilEmpire.ttf", "You Lose!", 30);
+            SDL_Delay(5000);
+            break;
         }
     }
 }
@@ -90,9 +106,10 @@ void Game::update(void)
         rat->updateHead();
         rat->updateAmount(0.3);
         
-        snake->updateSpeed(0.03 * _speed_factor);
-        // Small decrease in _speed_factor for dynamic speed
-        _speed_factor = _speed_factor * _speed_factor - 0.1;
+        snake->updateSpeed(0.05 * _speed_factor);
+        // Small decrease in _speed_factor for dynamic speed 
+        // After peek this function decreases but it will serve required purpose
+        _speed_factor = _speed_factor * _speed_factor - 0.0001;
         snake->growBody();
     }
 }
