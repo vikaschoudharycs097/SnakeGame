@@ -33,6 +33,7 @@ public:
     void updateDir(MoveDirection _dir);
     bool snakeCell(const Point<int> &p);
     void growBody(void);
+    void reset(void);
 };
 
 #endif

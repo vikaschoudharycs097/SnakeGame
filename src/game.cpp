@@ -12,55 +12,8 @@ grid_y, MoveDirection::UP)), rat(new Rat(Point<double>(0.0, 0.0), grid_x, grid_y
 
 void Game::run(Renderer renderer, unsigned target_time)
 {
-    Uint32 title_time = SDL_GetTicks();
-    Uint32 frame_start;
-    Uint32 frame_end;
-    Uint32 frame_duration;
-
-    renderer.renderFont("../fonts/EvilEmpire.ttf", "LEVEL 1", 30);
-
-    while (_running)
-    {
-        frame_start = SDL_GetTicks();
-        
-        // Check user input
-        inputHandler();
-        
-        // Update snake and food
-        update();
-    
-        // Render snake and food
-        renderer.renderWindow(snake.get(), rat.get());
-
-        frame_end = SDL_GetTicks();
-
-        frame_duration = frame_end - frame_start;
-
-        if (frame_end - title_time >= 1000)
-        {
-            renderer.updateWindowTitle(_score);
-            title_time = SDL_GetTicks();
-        }
-
-        if (frame_duration < target_time)
-        {
-            SDL_Delay(target_time - frame_duration);
-        }
-
-        // Winner or loser
-        if (_score >= 300)
-        {
-            renderer.renderFont("../fonts/EvilEmpire.ttf", "You Won!", 30);
-            SDL_Delay(5000);
-            break;
-        }
-        else if (!snake->isAlive())
-        {
-            renderer.renderFont("../fonts/EvilEmpire.ttf", "You Lose!", 30);
-            SDL_Delay(5000);
-            break;
-        }
-    }
+    level1(std::move(renderer), target_time, 300);
+    return;
 }
 
 void Game::inputHandler(void)
@@ -111,6 +64,58 @@ void Game::update(void)
         // After peek this function decreases but it will serve required purpose
         _speed_factor = _speed_factor * _speed_factor - 0.0001;
         snake->growBody();
+    }
+}
+
+void Game::level1(Renderer renderer, unsigned target_time, int score_limit)
+{
+    renderer.renderFont("../fonts/EvilEmpire.ttf", "LEVEL 1", 30);
+    gameLoop(std::move(renderer), target_time, score_limit);
+}
+
+void Game::gameLoop(Renderer renderer, unsigned target_time, int score_limit)
+{
+    Uint32 title_time = SDL_GetTicks();
+    Uint32 frame_start;
+    Uint32 frame_end;
+    Uint32 frame_duration;
+    while (_running && snake->isAlive() && _score < score_limit)
+    {
+        frame_start = SDL_GetTicks();
+        
+        // Check user input
+        inputHandler();
+        
+        // Update snake and food
+        update();
+    
+        // Render snake and food
+        renderer.renderWindow(snake.get(), rat.get());
+
+        frame_end = SDL_GetTicks();
+
+        frame_duration = frame_end - frame_start;
+
+        if (frame_end - title_time >= 1000)
+        {
+            renderer.updateWindowTitle(_score);
+            title_time = SDL_GetTicks();
+        }
+
+        if (frame_duration < target_time)
+        {
+            SDL_Delay(target_time - frame_duration);
+        }
+    }
+
+    // Winner or loser
+    if (snake->isAlive())
+    {
+        renderer.renderFont("../fonts/EvilEmpire.ttf", "You Won!", 30);
+    }
+    else
+    {
+        renderer.renderFont("../fonts/EvilEmpire.ttf", "You Lose!", 30);
     }
 }
 

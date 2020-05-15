@@ -112,3 +112,9 @@ void Snake::growBody(void)
 {
     _growing = true;
 }
+
+void Snake::reset(void)
+{
+    _head.x = _GRID_X / 2;
+    _head.y = _GRID_Y / 2;
+}

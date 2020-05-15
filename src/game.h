@@ -25,6 +25,8 @@ private:
 public:
     Game(int grid_x, int grid_y);
     void run(Renderer renderer, unsigned target_time);
+    void gameLoop(Renderer render, unsigned target_time, int score_limit);
+    void level1(Renderer renderer, unsigned target_time, int score_limit);
     int getScore(void);
 };
 
