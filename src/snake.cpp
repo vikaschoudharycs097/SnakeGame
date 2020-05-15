@@ -10,7 +10,7 @@ Animal(head, speed), _GRID_X(grid_x), _GRID_Y(grid_y), _dir(dir)
 }
 
 // Update the _body and _head of snake according to _speed
-void Snake::update()
+void Snake::update(const std::vector<Point<int>> &obstacle)
 {
     Point<int> prev_head(static_cast<int>(_head.x), static_cast<int>(_head.y));
     updateHead();
@@ -19,6 +19,7 @@ void Snake::update()
     if (prev_head != curr_head)
     {
         updateBody(curr_head, prev_head);
+        checkCollision(obstacle);
     }
 }
 
@@ -117,4 +118,19 @@ void Snake::reset(void)
 {
     _head.x = _GRID_X / 2;
     _head.y = _GRID_Y / 2;
+    _body.clear();
+    setSpeed(0.1);
+}
+
+void Snake::checkCollision(const std::vector<Point<int>> &obstacle)
+{
+    Point<int> t_head(static_cast<int>(_head.x), static_cast<int>(_head.y));
+    for (auto &point: obstacle)
+    {
+        if (t_head == point)
+        {
+            setAlive(false);
+            break;
+        }
+    }
 }

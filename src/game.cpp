@@ -5,14 +5,21 @@
 
 Game::Game(int grid_x, int grid_y):
 snake(new Snake(Point<double>(grid_x / 2.0, grid_y / 2.0), 0.1, grid_x, 
-grid_y, MoveDirection::UP)), rat(new Rat(Point<double>(0.0, 0.0), grid_x, grid_y, 1.0))
+grid_y, MoveDirection::UP)), rat(new Rat(Point<double>(0.0, 0.0), grid_x, grid_y, 1.0)),
+_GRID_X(grid_x), _GRID_Y(grid_y)
 {
 
 }
 
 void Game::run(Renderer renderer, unsigned target_time)
 {
-    level1(std::move(renderer), target_time, 300);
+    level1(renderer, target_time, 100);
+
+
+    if (snake->isAlive() && _running)
+    {
+        renderer.renderFont("../fonts/EvilEmpire.ttf", "You Win!", 30);   
+    }
     return;
 }
 
@@ -49,17 +56,17 @@ void Game::inputHandler(void)
 void Game::update(void)
 {
     // Updating snake position
-    snake->update();
+    snake->update(obstacle);
     
     auto head = snake->getHead();
     
     if (static_cast<int>(head.x) == rat->getX() && static_cast<int>(head.y) == rat->getY())
     {
         _score += rat->getAmount();
-        rat->updateHead();
+        validRatHead();
         rat->updateAmount(0.3);
         
-        snake->updateSpeed(0.05 * _speed_factor);
+        snake->updateSpeed(0.04 * _speed_factor);
         // Small decrease in _speed_factor for dynamic speed 
         // After peek this function decreases but it will serve required purpose
         _speed_factor = _speed_factor * _speed_factor - 0.0001;
@@ -67,13 +74,56 @@ void Game::update(void)
     }
 }
 
-void Game::level1(Renderer renderer, unsigned target_time, int score_limit)
+void Game::level1(Renderer &renderer, unsigned target_time, int score_limit)
 {
+    validRatHead();
     renderer.renderFont("../fonts/EvilEmpire.ttf", "LEVEL 1", 30);
-    gameLoop(std::move(renderer), target_time, score_limit);
+    gameLoop(renderer, target_time, score_limit);
+
+    // Winner or loser
+    if (!_running)
+    {
+
+    }
+    else if (snake->isAlive())
+    {
+        _speed_factor = 1.0;
+        snake->reset();  // Resetting snake
+        level2(renderer, target_time, 200);   
+    }
+    else
+    {
+        renderer.renderFont("../fonts/EvilEmpire.ttf", "You Lose!", 30);
+    }
 }
 
-void Game::gameLoop(Renderer renderer, unsigned target_time, int score_limit)
+void Game::level2(Renderer &renderer, unsigned target_time, int score_limit)
+{
+    // Adding obstacle
+    obstacle.clear();
+    for (int i = 0; i < _GRID_X; i++)
+    {
+        obstacle.push_back(Point<int>(i, 0));
+        obstacle.push_back(Point<int>(i, _GRID_Y - 1));
+    }
+    for (int i = 1; i < _GRID_Y - 1; i++)
+    {
+        obstacle.push_back(Point<int>(0, i));
+        obstacle.push_back(Point<int>(_GRID_X - 1, i));
+    }
+
+    validRatHead();
+
+    renderer.renderFont("../fonts/EvilEmpire.ttf", "LEVEL 2", 30);
+    gameLoop(renderer, target_time, score_limit);
+
+    if (!snake->isAlive())
+    {
+        renderer.renderFont("../fonts/EvilEmpire.ttf", "You Lose!", 30);
+    }
+}
+
+void Game::gameLoop(Renderer &renderer, unsigned target_time, int score_limit)
 {
     Uint32 title_time = SDL_GetTicks();
     Uint32 frame_start;
@@ -90,13 +140,13 @@ void Game::gameLoop(Renderer renderer, unsigned target_time, int score_limit)
         update();
     
         // Render snake and food
-        renderer.renderWindow(snake.get(), rat.get());
+        renderer.renderWindow(snake.get(), rat.get(), obstacle);
 
         frame_end = SDL_GetTicks();
 
         frame_duration = frame_end - frame_start;
 
-        if (frame_end - title_time >= 1000)
+        if (frame_end - title_time >= 100)
         {
             renderer.updateWindowTitle(_score);
             title_time = SDL_GetTicks();
@@ -107,19 +157,20 @@ void Game::gameLoop(Renderer renderer, unsigned target_time, int score_limit)
             SDL_Delay(target_time - frame_duration);
         }
     }
-
-    // Winner or loser
-    if (snake->isAlive())
-    {
-        renderer.renderFont("../fonts/EvilEmpire.ttf", "You Won!", 30);
-    }
-    else
-    {
-        renderer.renderFont("../fonts/EvilEmpire.ttf", "You Lose!", 30);
-    }
 }
 
 int Game::getScore(void)
 {
     return _score;
+}
+
+void Game::validRatHead(void)
+{
+    Point<int> t_head(0, 0);
+    do
+    {
+        rat->updateHead();
+        t_head.x = rat->getX();
+        t_head.y = rat->getY();
+    } while (snake->snakeCell(t_head) || rat->checkCollision(obstacle));
 }

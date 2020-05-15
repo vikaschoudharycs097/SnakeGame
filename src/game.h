@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <memory>
+#include <string>
 #include "snake.h"
 #include "rat.h"
 #include "renderer.h"
@@ -14,6 +15,9 @@ private:
     std::unique_ptr<Rat> rat;
     bool _running{true};
     int _score{0};
+    const int _GRID_X;
+    const int _GRID_Y;
+    std::vector<Point<int>> obstacle;
 
     // Use to determine dynamic change in speed of snake with each new food consumption
     double _speed_factor{1.0};
@@ -25,9 +29,11 @@ private:
 public:
     Game(int grid_x, int grid_y);
     void run(Renderer renderer, unsigned target_time);
-    void gameLoop(Renderer render, unsigned target_time, int score_limit);
-    void level1(Renderer renderer, unsigned target_time, int score_limit);
+    void gameLoop(Renderer &render, unsigned target_time, int score_limit);
+    void level1(Renderer &renderer, unsigned target_time, int score_limit);
+    void level2(Renderer &renderer, unsigned target_time, int score_limit);
     int getScore(void);
+    void validRatHead(void);
 };
 
 #endif

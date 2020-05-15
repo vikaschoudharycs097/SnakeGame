@@ -27,13 +27,14 @@ public:
     // Constructor
     Snake(Point<double> head, double speed, int grid_x, int grid_y, MoveDirection dir);
     std::vector<Point<int>> getBody(void);
-    void update(void);
+    void update(const std::vector<Point<int>> &obstacle);
     void updateHead(void);
     void updateBody(const Point<int> &curr_head, const Point<int> &prev_head);
     void updateDir(MoveDirection _dir);
     bool snakeCell(const Point<int> &p);
     void growBody(void);
     void reset(void);
+    void checkCollision(const std::vector<Point<int>> &obstacle);
 };
 
 #endif

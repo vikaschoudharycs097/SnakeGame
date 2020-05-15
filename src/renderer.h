@@ -23,7 +23,7 @@ public:
     Renderer(Renderer &&renderer);   // Move Constructor
     ~Renderer();  // Destructor
 
-    void renderWindow(Snake *snake, Rat *rat);
+    void renderWindow(Snake *snake, Rat *rat, const std::vector<Point<int>> &obstacle);
     void renderFont(const char *font_name, const char *text, int size);
     void updateWindowTitle(int score);
 

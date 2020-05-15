@@ -4,6 +4,7 @@
 #include <random>
 #include <cstdint>
 #include "animal.h"
+#include "snake.h"
 
 class Rat: public Animal
 {
@@ -21,6 +22,7 @@ public:
     void updateAmount(double increment);
     double getX(void);
     double getY(void);
+    bool checkCollision(const std::vector<Point<int>> &obstacle);
 };
 
 #endif

@@ -86,7 +86,7 @@ Renderer::~Renderer()
     SDL_Quit();
 }
 
-void Renderer::renderWindow(Snake *snake, Rat *rat)
+void Renderer::renderWindow(Snake *snake, Rat *rat, const std::vector<Point<int>> &obstacle)
 {
     SDL_Rect rect; 
     rect.w = _grid_width;
@@ -124,6 +124,15 @@ void Renderer::renderWindow(Snake *snake, Rat *rat)
         SDL_SetRenderDrawColor(_renderer, 0XFF, 0X0, 0X0, 0XFF);
     }
     SDL_RenderFillRect(_renderer, &rect);
+
+    // Display obstacle
+    SDL_SetRenderDrawColor(_renderer, 0X0, 0x00, 0xCC, 0x44);
+    for (auto &point: obstacle)
+    {
+        rect.x = point.x * rect.w;
+        rect.y = point.y * rect.h;
+        SDL_RenderFillRect(_renderer, &rect);
+    }
 
     // Update screen
     SDL_RenderPresent(_renderer);
