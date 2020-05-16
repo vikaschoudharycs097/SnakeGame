@@ -18,6 +18,7 @@ private:
 public:
     Rat(Point<double> head, int grid_x, int grid_y, double _amount);
     int getAmount(void);
+    void setAmount(double amount);
     void updateHead(void);
     void updateAmount(double increment);
     double getX(void);

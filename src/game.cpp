@@ -89,6 +89,7 @@ void Game::level1(Renderer &renderer, unsigned target_time, int score_limit)
     {
         _speed_factor = 1.0;
         snake->reset();  // Resetting snake
+        rat->setAmount(1.0);
         level2(renderer, target_time, 200);   
     }
     else

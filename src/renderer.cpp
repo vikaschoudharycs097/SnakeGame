@@ -141,6 +141,7 @@ void Renderer::renderWindow(Snake *snake, Rat *rat, const std::vector<Point<int>
 void Renderer::renderFont(const char *font_name, const char *text, int size)
 {
     // Clearing the window
+    SDL_SetRenderDrawColor(_renderer, 0X1E, 0X1E, 0X1E, 0XFF);
     SDL_RenderClear(_renderer);
 
     // Load font
@@ -171,10 +172,11 @@ void Renderer::renderFont(const char *font_name, const char *text, int size)
     SDL_RenderCopy(_renderer, texture, NULL, &coor);
     SDL_RenderPresent(_renderer);
 
-    SDL_Delay(5000);
+    SDL_Delay(3000);
 
-    SDL_DestroyTexture(texture);
     SDL_FreeSurface(surface);
+    SDL_DestroyTexture(texture);
+
     // Pointer to the TTF_Font to free
     TTF_CloseFont(font);
 }

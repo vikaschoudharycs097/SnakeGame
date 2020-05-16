@@ -29,6 +29,12 @@ double Rat::getY(void)
     return _head.y;
 }
 
+// Setters
+void Rat::setAmount(double amount)
+{
+    _amount = amount;
+}
+
 void Rat::updateAmount(double increment)
 {
     _amount += increment;
