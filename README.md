@@ -27,3 +27,16 @@ snake  # command to run snake game
 
 ## License
 See the [LICENSE](LICENSE) file for license rights and limitations (MIT).
+
+## C++ features used in the game design(Not for user)
+1. for, while, if-else if-else, switch, do-while - Used in may files and many places(i.e. Game.cpp have do-while in line 217)
+2. User input - Game.cpp function - inputHandler
+3. OOP - Game.h, Point.h, Snake.h etc.
+4. Constructor with Member initilization list - Game.cpp, Snake.cpp etc.
+5. Abstract class - Animal.h
+6. Inheritance - Animal class is inherited by Snake and Rat classes
+7. Unique_ptr - Game.h for data member snake and rat line 14 and 15
+8. Template - Point.h
+9. Rule of 5 - Renderer.h
+10. Derived class functions override virtual base class functions - Snake.cpp and Rat.cpp
+And many more features are used in this program
