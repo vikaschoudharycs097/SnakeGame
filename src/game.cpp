@@ -47,7 +47,16 @@ void Game::inputHandler(void)
                     break;
                 case SDLK_RIGHT:
                     snake->updateDir(MoveDirection::RIGHT);
-                    break;   
+                    break;
+                case SDLK_SPACE:
+                    while (true)
+                    {
+                        if (SDL_PollEvent(&e) && e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE)
+                        {
+                            break;
+                        }
+                        SDL_Delay(1000);
+                    }   
             }
         }
     }
