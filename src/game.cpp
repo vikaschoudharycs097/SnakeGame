@@ -13,7 +13,7 @@ _GRID_X(grid_x), _GRID_Y(grid_y)
 
 void Game::run(Renderer renderer, unsigned target_time)
 {
-    level1(renderer, target_time, 100);
+    level1(renderer, target_time, 200);
 
 
     if (snake->isAlive() && _running)
@@ -51,9 +51,16 @@ void Game::inputHandler(void)
                 case SDLK_SPACE:
                     while (true)
                     {
-                        if (SDL_PollEvent(&e) && e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE)
+                        if (SDL_PollEvent(&e))
                         {
-                            break;
+                            if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE)
+                            {
+                                break;
+                            }
+                            else 
+                            {
+                                continue;
+                            }
                         }
                         SDL_Delay(1000);
                     }   
@@ -99,7 +106,7 @@ void Game::level1(Renderer &renderer, unsigned target_time, int score_limit)
         _speed_factor = 1.0;
         snake->reset();  // Resetting snake
         rat->setAmount(1.0);
-        level2(renderer, target_time, 200);   
+        level2(renderer, target_time, 500);   
     }
     else
     {
@@ -110,7 +117,6 @@ void Game::level1(Renderer &renderer, unsigned target_time, int score_limit)
 void Game::level2(Renderer &renderer, unsigned target_time, int score_limit)
 {
     // Adding obstacle
-    obstacle.clear();
     for (int i = 0; i < _GRID_X; i++)
     {
         obstacle.push_back(Point<int>(i, 0));
@@ -125,6 +131,37 @@ void Game::level2(Renderer &renderer, unsigned target_time, int score_limit)
     validRatHead();
 
     renderer.renderFont("../fonts/EvilEmpire.ttf", "LEVEL 2", 30);
+    gameLoop(renderer, target_time, score_limit);
+
+    if (!_running)
+    {
+
+    }
+    else if (snake->isAlive())
+    {
+        _speed_factor = 1.0;
+        snake->reset();  // Resetting snake
+        rat->setAmount(1.0);
+        level3(renderer, target_time, 1000); 
+    }
+    else 
+    {
+        renderer.renderFont("../fonts/EvilEmpire.ttf", "You Lose!", 30);
+    }
+}
+
+void Game::level3(Renderer &renderer, unsigned target_time, int score_limit)
+{
+    // Adding more obstacle
+    for (int i = 10; i < _GRID_X - 11; i++)
+    {
+        obstacle.push_back(Point<int>(i, _GRID_Y / 4));
+        obstacle.push_back(Point<int>(i, 3 * _GRID_Y / 4));
+    }
+
+    validRatHead();
+
+    renderer.renderFont("../fonts/EvilEmpire.ttf", "LEVEL 3", 30);
     gameLoop(renderer, target_time, score_limit);
 
     if (!snake->isAlive())
