@@ -17,11 +17,11 @@ enum class MoveDirection
 class Snake: public Animal
 {
 private:
-    std::vector<Point<int>> _body;
-    MoveDirection _dir;
-    bool _growing{false};
     const int _GRID_X;
     const int _GRID_Y;
+    MoveDirection _dir;
+    std::vector<Point<int>> _body;
+    bool _growing{false};
 
 public:
     // Constructor

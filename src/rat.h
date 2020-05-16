@@ -9,11 +9,11 @@
 class Rat: public Animal
 {
 private:
-    double _amount; // It is used for score;
     std::random_device _rd;
     std::mt19937 _mt{_rd()};
     std::uniform_int_distribution<int> _random_x;
     std::uniform_int_distribution<int> _random_y;
+    double _amount; // It is used for score;
 
 public:
     Rat(Point<double> head, int grid_x, int grid_y, double _amount);

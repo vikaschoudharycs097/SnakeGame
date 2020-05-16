@@ -13,10 +13,10 @@ class Game
 private:
     std::unique_ptr<Snake> snake;
     std::unique_ptr<Rat> rat;
-    bool _running{true};
-    int _score{0};
     const int _GRID_X;
     const int _GRID_Y;
+    bool _running{true};
+    int _score{0};
     std::vector<Point<int>> obstacle;
 
     // Use to determine dynamic change in speed of snake with each new food consumption

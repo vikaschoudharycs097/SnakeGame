@@ -6,12 +6,12 @@
 
 class Animal
 {
+protected:
+    Point<double> _head;
+    
 private:
     double _speed;
     bool _alive{true};
-
-protected:
-    Point<double> _head;
 
 public:
     Animal(Point<double> head, double speed);
