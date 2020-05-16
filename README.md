@@ -4,14 +4,8 @@ Designing snake game using SDL(Simple DirectMedia Layer) and C++ language
 
 ## Instruction(for Linux)
 <pre>
-sudo apt-get install gcc  
-sudo apt-get install cmake  
 git clone https://github.com/vikaschoudharycs097/SnakeGame
-mkdir build
-cd build
-cmake ..
-make
-auto make install
+make  # command to install snake game
 snake  # command to run snake game
 </pre>
 
