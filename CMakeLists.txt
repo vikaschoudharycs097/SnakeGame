@@ -13,5 +13,3 @@ include_directories(${SDL2_INCLUDE_DIRS})
 
 add_executable(snake src/main.cpp src/game.cpp src/rat.cpp src/renderer.cpp src/snake.cpp src/animal.cpp)
 target_link_libraries(snake ${SDL2_LIBRARIES} "-lSDL2_ttf")
-
-install(TARGETS snake DESTINATION /usr/local/bin)
