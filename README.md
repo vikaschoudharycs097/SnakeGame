@@ -21,6 +21,7 @@ In this project, A grid based snake game is designed using C++ language and SDL(
 ## Instruction(for Linux)
 <pre>
 git clone https://github.com/vikaschoudharycs097/SnakeGame
+cd SnakeGame
 make  # command to install snake game
 snake  # command to run snake game
 </pre>
