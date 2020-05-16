@@ -19,7 +19,7 @@ In this project, A grid based snake game is designed using C++ language and SDL(
 ![](images/im3.png)
 
 ## Dependencies for Running Locally
-* cmake >= 3.7
+* cmake >= 3.14
   * All OSes: [click here for installation instructions](https://cmake.org/install/)
 * make >= 4.1 (Linux, Mac), 3.81 (Windows)
   * Linux: make is installed by default on most Linux distros
