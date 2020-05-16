@@ -18,7 +18,7 @@ void Game::run(Renderer renderer, unsigned target_time)
 
     if (snake->isAlive() && _running)
     {
-        renderer.renderFont("../fonts/EvilEmpire.ttf", "You Win!", 30);   
+        renderer.renderFont("./fonts/EvilEmpire.ttf", "You Win!", 30);   
     }
     return;
 }
@@ -93,7 +93,7 @@ void Game::update(void)
 void Game::level1(Renderer &renderer, unsigned target_time, int score_limit)
 {
     validRatHead();
-    renderer.renderFont("../fonts/EvilEmpire.ttf", "LEVEL 1", 30);
+    renderer.renderFont("./fonts/EvilEmpire.ttf", "LEVEL 1", 30);
     gameLoop(renderer, target_time, score_limit);
 
     // Winner or loser
@@ -110,7 +110,7 @@ void Game::level1(Renderer &renderer, unsigned target_time, int score_limit)
     }
     else
     {
-        renderer.renderFont("../fonts/EvilEmpire.ttf", "You Lose!", 30);
+        renderer.renderFont("./fonts/EvilEmpire.ttf", "You Lose!", 30);
     }
 }
 
@@ -130,7 +130,7 @@ void Game::level2(Renderer &renderer, unsigned target_time, int score_limit)
 
     validRatHead();
 
-    renderer.renderFont("../fonts/EvilEmpire.ttf", "LEVEL 2", 30);
+    renderer.renderFont("./fonts/EvilEmpire.ttf", "LEVEL 2", 30);
     gameLoop(renderer, target_time, score_limit);
 
     if (!_running)
@@ -146,7 +146,7 @@ void Game::level2(Renderer &renderer, unsigned target_time, int score_limit)
     }
     else 
     {
-        renderer.renderFont("../fonts/EvilEmpire.ttf", "You Lose!", 30);
+        renderer.renderFont("./fonts/EvilEmpire.ttf", "You Lose!", 30);
     }
 }
 
@@ -161,12 +161,12 @@ void Game::level3(Renderer &renderer, unsigned target_time, int score_limit)
 
     validRatHead();
 
-    renderer.renderFont("../fonts/EvilEmpire.ttf", "LEVEL 3", 30);
+    renderer.renderFont("./fonts/EvilEmpire.ttf", "LEVEL 3", 30);
     gameLoop(renderer, target_time, score_limit);
 
     if (!snake->isAlive())
     {
-        renderer.renderFont("../fonts/EvilEmpire.ttf", "You Lose!", 30);
+        renderer.renderFont("./fonts/EvilEmpire.ttf", "You Lose!", 30);
     }
 }
 
