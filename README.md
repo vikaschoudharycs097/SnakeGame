@@ -1,6 +1,6 @@
 # Snake Game
 ## Introduction
-In this project, A grid based snake game is designed using C++ language and SDL(Simple Directmedia Library). It is three levels having three different diffculty level. To move the snake we can use arrows(Left, Right, Up, and Down). Space key is used to pause and resume the game.
+In this project, A grid based snake game is designed using C++ language and SDL(Simple DirectMedia Layer) Library. It is three levels having three different diffculty level. To move the snake we can use arrows(Left, Right, Up, and Down). Space key is used to pause and resume the game.
 
 ## Game Structure(Only for Developer)
 1. Point class uses template to define Point a point in 2-D
