@@ -26,7 +26,7 @@ void Game::run(Renderer renderer, unsigned target_time)
 void Game::inputHandler(void)
 {
     SDL_Event e;
-    while (SDL_PollEvent(&e))
+    while (SDL_PollEvent(&e) && _running)
     {
         if (e.type == SDL_QUIT)
         {
@@ -55,14 +55,17 @@ void Game::inputHandler(void)
                         {
                             if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE)
                             {
+                                std::cout << "yes\n";
                                 break;
                             }
-                            else 
+                            else if (e.type == SDL_QUIT) 
                             {
-                                continue;
+                                std::cout << "no\n";
+                                _running = false;
+                                break;
                             }
                         }
-                        SDL_Delay(1000);
+                        SDL_Delay(10);
                     }   
             }
         }
