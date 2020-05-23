@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 11)
 
 set(CXX_FLAGS "-std=c++11 -Wall -Werror -Wpedantic")
 set(CMAKE_CXX_FLAGS, "${CXX_FLAGS}")
